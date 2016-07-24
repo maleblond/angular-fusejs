@@ -1,0 +1,27 @@
+{
+  "name": "angular-local-search",
+  "version": "1.0.0",
+  "description": "Allow to search through an array of items using an angular filter. More flexible than $filter and supports highlighting. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maleblond/angular-local-search.git"
+  },
+  "keywords": [
+    "search",
+    "filter",
+    "angular",
+    "highlight",
+    "highlighting",
+    "$filter"
+  ],
+  "author": "Marc-Antoine Leblond",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maleblond/angular-local-search/issues"
+  },
+  "homepage": "https://github.com/maleblond/angular-local-search#readme"
+}
