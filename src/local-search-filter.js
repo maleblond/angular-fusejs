@@ -9,7 +9,7 @@
         propertyValue = _.get(item, property);
 
         if(_.isString(propertyValue)) {
-          propertiesToSearchOn[property] = propertyValue;
+          propertiesToSearchOn[property] = {value: propertyValue};
         }
       });
     }
@@ -24,17 +24,34 @@
     foundSearchTerms = [];
 
     return _.filter(items, function (item) {
-      propertiesToSearchOn = getPropertiesToSearchOn(item, options.properties);
+      return isItemMatching(item, searchTerms, options);
+    });
+  };
 
-      _.each(searchTerms, function (searchTerm) {
-        _.each(propertiesToSearchOn, function (propertyToSearchOn, key) {
-          if (propertyToSearchOn.toLowerCase().indexOf(searchTerm) != -1) {
-            foundSearchTerms.push(searchTerm);
-          }
-        });
+  isItemMatching = function(item, searchTerms, options) {
+    propertiesToSearchOn = getPropertiesToSearchOn(item, options.properties);
+
+    _.each(propertiesToSearchOn, function (propertyToSearchOn) {
+      augmentWithSearchInfos(searchTerms, propertyToSearchOn);
+    });
+
+    if(options.operator === 'or') {
+      return _.uniq(_.flatten(_.map(propertiesToSearchOn, 'foundSearchTerms'))).length / searchTerms.length >= options.minimumMatch;
+    }
+    else if(options.operator === 'and') {
+      return _.every(propertiesToSearchOn, function(propertyToSearchOn) {
+        return propertyToSearchOn.foundSearchTerms.length / searchTerms.length >= options.minimumMatch;
       });
+    }
+  };
 
-      return _.uniq(foundSearchTerms).length / searchTerms.length >= options.minimumMatch;
+  augmentWithSearchInfos = function(searchTerms, propertyToSearchOn) {
+    propertyToSearchOn.foundSearchTerms = [];
+
+    _.each(searchTerms, function (searchTerm) {
+      if (propertyToSearchOn.value.toLowerCase().indexOf(searchTerm) != -1) {
+        propertyToSearchOn.foundSearchTerms.push(searchTerm);
+      }
     });
   };
 
@@ -55,7 +72,8 @@
   //             present in at least one of item's field (if items are objects). When "and",
   //             all search terms must be present in all item's field.
   //   minimumMatch: Float from 0 to 1 (default 1) Only returns the item if percentage of searchTerms
-  //                 found in item is equal or higher than minimumMatch.
+  //                 found in item is equal or higher than minimumMatch. If operator is "and", percentage of search
+  //                  term found in each item's properties is used.
   //   sortByRelevancy: True or false (default false). Passing to true will sort the returned array
   //                    by descending relevancy order. Relevancy is based on the number
   //                    of search terms found in the item. Only relevant to use if minimumMatch != 1.
