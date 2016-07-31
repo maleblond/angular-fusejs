@@ -20,6 +20,28 @@
     return propertiesToSearchOn;
   };
 
+  findMatchingItems = function(items, searchTerms, options) {
+    foundSearchTerms = [];
+
+    return _.filter(items, function (item) {
+      propertiesToSearchOn = getPropertiesToSearchOn(item, options.properties);
+
+      _.each(searchTerms, function (searchTerm) {
+        _.each(propertiesToSearchOn, function (propertyToSearchOn, key) {
+          if (propertyToSearchOn.toLowerCase().indexOf(searchTerm) != -1) {
+            foundSearchTerms.push(searchTerm);
+          }
+        });
+      });
+
+      return _.uniq(foundSearchTerms).length / searchTerms.length >= options.minimumMatch;
+    });
+  };
+
+  getSearchTerms = function(searchString) {
+    return searchString.trim().split(' ');
+  };
+
   // items: Array of string or objects to search on
   // searchString: String that will be split (on spaces) into searchTerms
   // options:
@@ -34,37 +56,22 @@
   //             all search terms must be present in all item's field.
   //   minimumMatch: Float from 0 to 1 (default 1) Only returns the item if percentage of searchTerms
   //                 found in item is equal or higher than minimumMatch.
-  //   sortByRelevancy: True or false (default). Passing to true will sort the returned array
+  //   sortByRelevancy: True or false (default false). Passing to true will sort the returned array
   //                    by descending relevancy order. Relevancy is based on the number
   //                    of search terms found in the item. Only relevant to use if minimumMatch != 1.
   module.exports = function() {
     return function(items, searchString, options) {
-      items = items || []
+      _.defaultsDeep(options, {properties: null, operator: 'or', minimumMatch: 1, sortByRelevancy: false});
+      items = items || [];
 
       if(!searchString || !_.isString(searchString)) {
         return items;
       }
 
-      searchTerms = searchString.trim().split(' ');
+      searchTerms = getSearchTerms(searchString);
 
       if(searchTerms.length > 0) {
-        foundSearchTerms = [];
-
-        matchingItems = _.filter(items, function(item) {
-          propertiesToSearchOn = getPropertiesToSearchOn(item, options.properties);
-
-          _.each(searchTerms, function(searchTerm) {
-            _.each(propertiesToSearchOn, function(propertyToSearchOn, key) {
-              if(propertyToSearchOn.toLowerCase().indexOf(searchTerm) != -1) {
-                foundSearchTerms.push(searchTerm);
-              }
-            });
-          });
-
-          return _.uniq(foundSearchTerms).length === searchTerms.length;
-        });
-
-        return matchingItems;
+        return findMatchingItems(items, searchTerms, options);
       }
       else {
         return items;
