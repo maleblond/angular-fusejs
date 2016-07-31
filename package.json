@@ -4,7 +4,7 @@
   "description": "Allow to search through an array of items using an angular filter. More flexible than $filter and supports highlighting. ",
   "main": "index.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "gulp bundle-js && gulp bundle-specs && karma start"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,18 @@
   "bugs": {
     "url": "https://github.com/maleblond/angular-local-search/issues"
   },
-  "homepage": "https://github.com/maleblond/angular-local-search#readme"
+  "homepage": "https://github.com/maleblond/angular-local-search#readme",
+  "dependencies": {
+    "angular": "~1.5.8",
+    "lodash": "~4.14.0"
+  },
+  "devDependencies": {
+    "karma": "~1.1.2",
+    "karma-jasmine": "~1.0.2",
+    "gulp": "~3.9.1",
+    "browserify": "~13.1.0",
+    "vinyl-source-stream": "~1.1.0",
+    "karma-phantomjs-launcher": "~1.0.1",
+    "angular-mocks": "~1.5.8"
+  }
 }
