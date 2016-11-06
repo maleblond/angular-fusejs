@@ -7,7 +7,7 @@ module.exports = {
       {
         name: 'potato'
       }, {
-        name: 'carott'
+        name: 'carot'
       }, {
         name: 'brocoli'
       }, {
