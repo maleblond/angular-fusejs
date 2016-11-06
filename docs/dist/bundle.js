@@ -6,7 +6,15 @@ module.exports = {
 
     ctrl.list = [
       {
-        name: 'patate'
+        name: 'potato'
+      }, {
+        name: 'carott'
+      }, {
+        name: 'brocoli'
+      }, {
+        name: 'onion'
+      }, {
+        name: 'oncologic'
       }
     ]
   }
