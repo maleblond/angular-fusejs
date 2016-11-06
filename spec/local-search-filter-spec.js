@@ -1,5 +1,6 @@
 describe('local search filter', function() {
-  $filter = null
+  $filter = null;
+
   beforeEach(function() {
     angular.mock.module('localSearch');
 
