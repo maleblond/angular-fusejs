@@ -10,7 +10,7 @@ It is currently only available on npm and it assumes you are using a bundler suc
 Specify the latest version in your package.json.
 
 1. Add angular-local-search to your package.json
-2. `npm install`
+2. `npm install` or `yarn`
 3. Require the node module in your application. This would work: `angular.module('main', [require('angular-local-search')])`
 4. You now can use 'localSearch' filter: `arrayOfItems | localSearch:searchString`
 
