@@ -79,6 +79,10 @@
   //                    of search terms found in the item. Only relevant to use if minimumMatch != 1.
   module.exports = function() {
     return function(items, searchString, options) {
+      if(options == null) {
+        options = {};
+      }
+
       _.defaultsDeep(options, {properties: null, operator: 'or', minimumMatch: 1, sortByRelevancy: false});
       items = items || [];
 

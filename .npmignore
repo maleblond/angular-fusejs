@@ -1,0 +1,5 @@
+docs/
+dist/
+
+.idea/
+node_modules/

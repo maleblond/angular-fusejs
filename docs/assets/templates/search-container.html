@@ -1,0 +1,9 @@
+<div>
+    <input ng-model="$ctrl.searchTerms" type="text" placeholder="Type your search terms here">
+</div>
+
+<table>
+    <tr ng-repeat="item in $ctrl.list | localSearch:$ctrl.searchTerms:{properties: ['name']}">
+        <td>{{item.name}}</td>
+    </tr>
+</table>
