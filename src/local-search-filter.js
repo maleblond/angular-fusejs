@@ -36,7 +36,7 @@
     });
 
     if(options.operator === 'or') {
-      return _.uniq(_.flatten(_.map(propertiesToSearchOn, 'foundSearchTerms'))).length / searchTerms.length >= options.minimumMatch;
+      return _.uniq(_.map(propertiesToSearchOn, 'foundSearchTerms')).length / searchTerms.length >= options.minimumMatch;
     }
     else if(options.operator === 'and') {
       return _.every(propertiesToSearchOn, function(propertyToSearchOn) {
