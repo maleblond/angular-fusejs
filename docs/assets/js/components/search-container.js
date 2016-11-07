@@ -5,15 +5,20 @@ module.exports = {
 
     ctrl.list = [
       {
-        name: 'potato'
+        name: 'potato',
+        location: 'Mexico'
       }, {
-        name: 'carot'
+        name: 'carrot',
+        location: 'Barcelona'
       }, {
-        name: 'brocoli'
+        name: 'brocoli',
+        location: 'Mexico'
       }, {
-        name: 'onion'
+        name: 'onion',
+        location: 'Rio'
       }, {
-        name: 'oncologic'
+        name: 'oncologic',
+        location: 'Barcelona'
       }
     ]
   }
