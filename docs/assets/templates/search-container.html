@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in filteredItems = ($ctrl.list | localSearch:$ctrl.searchTerms:{properties: ['name', 'location']})">
+                <tr ng-repeat="item in filteredItems = ($ctrl.list | localSearch:$ctrl.searchTerms:{properties: ['name', 'location'], operator: 'or', minimumMatch: 0.5})">
                     <td>{{item.name}}</td>
                     <td>{{item.location}}</td>
                 </tr>

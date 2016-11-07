@@ -21,7 +21,7 @@
   };
 
   findMatchingItems = function(items, searchTerms, options) {
-    foundSearchTerms = [];
+    var foundSearchTerms = [];
 
     return _.filter(items, function (item) {
       return isItemMatching(item, searchTerms, options);
@@ -29,7 +29,7 @@
   };
 
   isItemMatching = function(item, searchTerms, options) {
-    propertiesToSearchOn = getPropertiesToSearchOn(item, options.properties);
+    var propertiesToSearchOn = getPropertiesToSearchOn(item, options.properties);
 
     _.each(propertiesToSearchOn, function (propertyToSearchOn) {
       augmentWithSearchInfos(searchTerms, propertyToSearchOn);
@@ -56,7 +56,7 @@
   };
 
   getSearchTerms = function(searchString) {
-    return searchString.trim().split(' ');
+    return searchString.trim().toLowerCase().split(' ');
   };
 
   // items: Array of string or objects to search on
