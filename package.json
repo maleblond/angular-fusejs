@@ -1,42 +1,52 @@
 {
-  "name": "angular-local-search",
+  "name": "angular2-ts-starter-pack",
   "version": "1.0.0",
-  "description": "Allow to search through an array of items using an angular filter. More flexible than $filter and supports highlighting. ",
+  "description": "Webpack2 / angular2 / typescript starter pack so I can easily develop angular2 plugins",
   "main": "index.js",
   "scripts": {
-    "test": "gulp bundle-js && gulp bundle-specs && karma start"
+    "build": "webpack",
+    "start": "webpack-dev-server",
+    "dist": "webpack --display-error-details",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "copy:force": "cp -Rf ./*"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maleblond/angular-local-search.git"
+    "url": "git+https://github.com/maleblond/angular2-ts-starter-pack.git"
   },
   "keywords": [
-    "search",
-    "filter",
-    "angular",
-    "highlight",
-    "highlighting",
-    "$filter"
+    "angular2",
+    "typescript",
+    "webpack2"
   ],
   "author": "Marc-Antoine Leblond",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maleblond/angular-local-search/issues"
+    "url": "https://github.com/maleblond/angular2-ts-starter-pack/issues"
   },
-  "homepage": "https://github.com/maleblond/angular-local-search#readme",
+  "homepage": "https://github.com/maleblond/angular2-ts-starter-pack#readme",
   "dependencies": {
-    "angular": "~1.5.8",
-    "lodash": "~4.14.0"
+    "@angular/common": "^2.4.0",
+    "@angular/compiler": "^2.4.0",
+    "@angular/core": "^2.4.0",
+    "@angular/forms": "^2.4.0",
+    "@angular/http": "^2.4.0",
+    "@angular/platform-browser": "^2.4.0",
+    "@angular/platform-browser-dynamic": "^2.4.0",
+    "@angular/router": "^3.4.0",
+    "core-js": "^2.4.1",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.7.6"
   },
   "devDependencies": {
-    "angular-mocks": "~1.5.8",
-    "browserify": "~13.1.0",
-    "gulp": "~3.9.1",
-    "gulp-webserver": "^0.9.1",
-    "jasmine-core": "^2.5.2",
-    "karma": "~1.1.2",
-    "karma-jasmine": "~1.0.2",
-    "karma-phantomjs-launcher": "~1.0.1",
-    "vinyl-source-stream": "~1.1.0"
+    "@types/core-js": "^0.9.35",
+    "awesome-typescript-loader": "^3.0.8",
+    "css-loader": "^0.26.2",
+    "node-sass": "^4.5.0",
+    "sass-loader": "^6.0.2",
+    "style-loader": "^0.13.2",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "2"
   }
 }
