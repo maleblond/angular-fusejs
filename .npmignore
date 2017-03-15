@@ -1,0 +1,7 @@
+.gitignore
+docs/
+node_modules/
+LICENSE
+README.md
+tsconfig.json
+tslint.json
