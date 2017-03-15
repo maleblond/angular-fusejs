@@ -4,8 +4,11 @@
   "description": "Angular 2 plugin using fuse.js to search through a list of elements with a string. Supports highlight.",
   "main": "index.js",
   "dependencies": {
+    "fuse.js": "^2.0.0"
   },
-  "devDependencies": {},
+  "peerDependencies": {
+    "@angular/core": "^2.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

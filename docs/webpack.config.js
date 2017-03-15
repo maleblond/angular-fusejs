@@ -27,6 +27,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, './src'),
   },
   resolve: {
+    modules: [ path.join(__dirname, "node_modules") ],
     extensions: ['.ts', '.js']
   },
 };
