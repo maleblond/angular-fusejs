@@ -6,8 +6,4 @@ import {FusejsService} from './src/fusejs.service'
     FusejsService
   ]
 })
-export class FusejsModule {
-  constructor() {
-    console.log('okok');
-  }
-}
+export class FusejsModule {}

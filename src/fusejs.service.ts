@@ -4,6 +4,10 @@ import * as Fuse from 'fuse.js'
 @Injectable()
 export class FusejsService {
   constructor() {
-    console.log(Fuse);
+    new Fuse([]);
+  }
+
+  searchList(list, options) {
+
   }
 }

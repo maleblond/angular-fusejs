@@ -12,7 +12,6 @@ var core_1 = require('@angular/core');
 var fusejs_service_1 = require('./src/fusejs.service');
 var FusejsModule = (function () {
     function FusejsModule() {
-        console.log('okok');
     }
     FusejsModule = __decorate([
         core_1.NgModule({
