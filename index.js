@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var fusejs_pipe_1 = require('./src/fusejs.pipe');
 var fusejs_service_1 = require('./src/fusejs.service');
 var FusejsModule = (function () {
     function FusejsModule() {
@@ -17,6 +18,12 @@ var FusejsModule = (function () {
         core_1.NgModule({
             providers: [
                 fusejs_service_1.FusejsService
+            ],
+            declarations: [
+                fusejs_pipe_1.FusejsPipe,
+            ],
+            exports: [
+                fusejs_pipe_1.FusejsPipe,
             ]
         }), 
         __metadata('design:paramtypes', [])
