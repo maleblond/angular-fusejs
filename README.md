@@ -4,7 +4,7 @@ Angular 2 module using fuse.js (http://fusejs.io) to search through a list of el
 
 ## How to install?
 
-This module is currently only available through npm. It is compatible with module bundlers (webpack / browserify ...)
+This module is available through npm. It is compatible with module bundlers (webpack / browserify ...)
 and I also provide a standalone minified version.
 
 1. `npm install angular-fusejs`
