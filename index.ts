@@ -14,3 +14,5 @@ import {FusejsService} from './src/fusejs.service'
   ]
 })
 export class FusejsModule {}
+export * from './src/fusejs.service';
+export * from './src/fusejs.pipe';

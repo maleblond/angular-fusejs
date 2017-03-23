@@ -8,6 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 var core_1 = require('@angular/core');
 var fusejs_pipe_1 = require('./src/fusejs.pipe');
 var fusejs_service_1 = require('./src/fusejs.service');
@@ -31,3 +34,5 @@ var FusejsModule = (function () {
     return FusejsModule;
 }());
 exports.FusejsModule = FusejsModule;
+__export(require('./src/fusejs.service'));
+__export(require('./src/fusejs.pipe'));

@@ -4,9 +4,6 @@
 /dist
 /tmp
 
-# dependencies
-/node_modules
-
 # IDEs and editors
 /.idea
 .project
@@ -43,4 +40,8 @@ Thumbs.db
 docs/node_modules
 
 *.js
+!/docs/**
+node_modules/
+
 yarn-error.log
+*.d.ts

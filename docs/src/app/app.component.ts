@@ -1,25 +1,21 @@
-import {Component, OnInit} from '@angular/core';
+import { AngularFusejsOptions } from 'angular-fusejs';
+import { OnInit, Component } from "@angular/core";
 @Component({
   selector: 'my-app',
   template: `
     <input type="search" [(ngModel)]="searchTerms">
     <ul>
-      <li *ngFor="let book of (books | fusejs:searchTerms:true:searchOptions)">
-        {{book.title}}
+      <li *ngFor="let book of (books | fusejs:searchTerms:searchOptions)">
+        {{book.fuseJsHighlighted?.title}}
       </li>
     </ul>
   `
 })
 export class AppComponent implements OnInit{
-  private searchOptions: Fuse.FuseOptions;
+  private searchOptions: AngularFusejsOptions;
   private books: Array<Object>;
   ngOnInit() {
     this.searchOptions = {
-      threshold: 0.6,
-      location: 0,
-      distance: 100,
-      maxPatternLength: 32,
-      minMatchCharLength: 1,
       keys: ['title']
     };
 

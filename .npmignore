@@ -5,3 +5,5 @@ LICENSE
 README.md
 tsconfig.json
 tslint.json
+*.ts
+!*d.ts

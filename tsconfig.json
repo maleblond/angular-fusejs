@@ -7,9 +7,10 @@
     "target": "es5",
     "noImplicitAny": false,
     "sourceMap": false,
-    "declaration": false,
+    "declaration": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "skipLibCheck": true
   }
 }
