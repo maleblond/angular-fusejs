@@ -3,6 +3,7 @@
     "index.ts"
   ],
   "compilerOptions": {
+    "allowJs": true,
     "module": "commonjs",
     "target": "es5",
     "noImplicitAny": false,
@@ -11,6 +12,9 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "exclude": [
+      "node_modules"
+    ]
   }
 }

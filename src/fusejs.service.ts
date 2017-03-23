@@ -3,13 +3,16 @@ import * as Fuse from 'fuse.js'
 import FuseOptions = Fuse.FuseOptions;
 
 // Should not include lodash, but only lodash.set / lodash.get
-import * as _ from 'lodash'
+import _set = require('lodash.set');
+import _get = require('lodash.get');
+
 
 export interface AngularFusejsOptions extends FuseOptions {
   supportHighlight?: boolean;
   fusejsHighlightKey?: string;
   minSearchTermLength?: number;
 }
+
 @Injectable()
 export class FusejsService {
   private defaultOptions: AngularFusejsOptions = {
@@ -57,7 +60,7 @@ export class FusejsService {
 
         if(indices[0]) {
           //TODO make it work with array indices (does not work out of the box with fusejs)
-          _.set(item[options.fusejsHighlightKey], key, (_.get(item, key) as string).substring(indices[0][0], indices[0][1] + 1))
+          _set(item[options.fusejsHighlightKey], key, (_get(item, key) as string).substring(indices[0][0], indices[0][1] + 1))
         }
       }
 

@@ -27,7 +27,7 @@ module.exports = {
     contentBase: path.resolve(__dirname, './src'),
   },
   resolve: {
-    modules: [ path.join(__dirname, "node_modules") ],
+    modules: [ path.join(__dirname, "node_modules"), path.join(__dirname, "node_modules/angular-fusejs/node_modules") ],
     extensions: ['.ts', '.js']
   },
 };
