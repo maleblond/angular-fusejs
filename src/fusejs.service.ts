@@ -31,6 +31,10 @@ export class FusejsService {
   searchList(list: Array<any>, searchTerms: string, options: AngularFusejsOptions = {}) {
     const fuseOptions: AngularFusejsOptions = Object.assign({}, this.defaultOptions, options);
 
+    if (searchTerms && searchTerms.length < fuseOptions.minSearchTermLength) {
+      return list;
+    }
+
     if (fuseOptions.supportHighlight) {
       fuseOptions.include.push('matches');
     }
@@ -51,16 +55,26 @@ export class FusejsService {
 
   private handleHighlight(result, options: AngularFusejsOptions) {
     return result.map((matchObject) => {
-      const item = matchObject.item;
+      const item = JSON.parse(JSON.stringify(matchObject.item));
       item[options.fusejsHighlightKey] = JSON.parse(JSON.stringify(item));
 
       for (let match of matchObject.matches) {
         const key = match.key;
         const indices = match.indices;
 
-        if(indices[0]) {
+        let highlightOffset: number = 0;
+
+        for (let indice of indices) {
+          console.log(indice);
           //TODO make it work with array indices (does not work out of the box with fusejs)
-          _set(item[options.fusejsHighlightKey], key, (_get(item, key) as string).substring(indices[0][0], indices[0][1] + 1))
+          const initialValue: string = _get(item[options.fusejsHighlightKey], key) as string;
+          const startOffset = indice[0] + highlightOffset;
+          const endOffset = indice[1] + highlightOffset + 1;
+          let highlightedTerm = initialValue.substring(startOffset, endOffset);
+          let newValue = initialValue.substring(0, startOffset) + '<em>' + highlightedTerm + '</em>' + initialValue.substring(endOffset);
+          // '<em></em>'.length
+          highlightOffset += 9;
+          _set(item[options.fusejsHighlightKey], key, newValue);
         }
       }
 

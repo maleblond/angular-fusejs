@@ -39507,6 +39507,9 @@ var FusejsService = (function () {
     FusejsService.prototype.searchList = function (list, searchTerms, options) {
         if (options === void 0) { options = {}; }
         var fuseOptions = Object.assign({}, this.defaultOptions, options);
+        if (searchTerms && searchTerms.length < fuseOptions.minSearchTermLength) {
+            return list;
+        }
         if (fuseOptions.supportHighlight) {
             fuseOptions.include.push('matches');
         }
@@ -39522,15 +39525,26 @@ var FusejsService = (function () {
     };
     FusejsService.prototype.handleHighlight = function (result, options) {
         return result.map(function (matchObject) {
-            var item = matchObject.item;
+            var item = JSON.parse(JSON.stringify(matchObject.item));
             item[options.fusejsHighlightKey] = JSON.parse(JSON.stringify(item));
+            console.log(matchObject.matches);
             for (var _i = 0, _a = matchObject.matches; _i < _a.length; _i++) {
                 var match = _a[_i];
                 var key = match.key;
                 var indices = match.indices;
-                if (indices[0]) {
+                var highlightOffset = 0;
+                for (var _b = 0, indices_1 = indices; _b < indices_1.length; _b++) {
+                    var indice = indices_1[_b];
+                    console.log(indice);
                     //TODO make it work with array indices (does not work out of the box with fusejs)
-                    _set(item[options.fusejsHighlightKey], key, _get(item, key).substring(indices[0][0], indices[0][1] + 1));
+                    var initialValue = _get(item[options.fusejsHighlightKey], key);
+                    var startOffset = indice[0] + highlightOffset;
+                    var endOffset = indice[1] + highlightOffset + 1;
+                    var highlightedTerm = initialValue.substring(startOffset, endOffset);
+                    var newValue = initialValue.substring(0, startOffset) + '<em>' + highlightedTerm + '</em>' + initialValue.substring(endOffset);
+                    // '<em></em>'.length
+                    highlightOffset += 9;
+                    _set(item[options.fusejsHighlightKey], key, newValue);
                 }
             }
             return item;
@@ -70862,7 +70876,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n    <input type=\"search\" [(ngModel)]=\"searchTerms\">\n    <ul>\n      <li *ngFor=\"let book of (books | fusejs:searchTerms:searchOptions)\">\n        {{book.fuseJsHighlighted?.title}}\n      </li>\n    </ul>\n  "
+        template: "\n    <input type=\"search\" [(ngModel)]=\"searchTerms\">\n    <ul>\n      <li *ngFor=\"let book of (books | fusejs:searchTerms:searchOptions)\" [innerHtml]=\"book.fuseJsHighlighted?.title || book.title\">\n      </li>\n    </ul>\n  "
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
@@ -71756,7 +71770,7 @@ exports = module.exports = __webpack_require__(415)();
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "em {\n  background-color: yellow;\n  font-style: normal; }\n", ""]);
 
 // exports
 
@@ -74713,34 +74727,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
 var fusejs_pipe_1 = __webpack_require__(254);
 var fusejs_service_1 = __webpack_require__(159);
 var FusejsModule = (function () {
     function FusejsModule() {
     }
-    FusejsModule = __decorate([
-        core_1.NgModule({
-            providers: [
-                fusejs_service_1.FusejsService
-            ],
-            declarations: [
-                fusejs_pipe_1.FusejsPipe,
-            ],
-            exports: [
-                fusejs_pipe_1.FusejsPipe,
-            ]
-        }), 
-        __metadata('design:paramtypes', [])
-    ], FusejsModule);
     return FusejsModule;
 }());
+FusejsModule = __decorate([
+    core_1.NgModule({
+        providers: [
+            fusejs_service_1.FusejsService
+        ],
+        declarations: [
+            fusejs_pipe_1.FusejsPipe,
+        ],
+        exports: [
+            fusejs_pipe_1.FusejsPipe,
+        ]
+    })
+], FusejsModule);
 exports.FusejsModule = FusejsModule;
 __export(__webpack_require__(159));
 __export(__webpack_require__(254));
