@@ -30,20 +30,29 @@ export class FusejsService {
 
   searchList(list: Array<any>, searchTerms: string, options: AngularFusejsOptions = {}) {
     const fuseOptions: AngularFusejsOptions = Object.assign({}, this.defaultOptions, options);
+    let result = [];
 
-    if (searchTerms && searchTerms.length < fuseOptions.minSearchTermLength) {
-      return list;
-    }
+    if (searchTerms && searchTerms.length >= fuseOptions.minSearchTermLength) {
+      if (fuseOptions.supportHighlight) {
+        fuseOptions.include.push('matches');
+      }
 
-    if (fuseOptions.supportHighlight) {
-      fuseOptions.include.push('matches');
-    }
+      let fuse = new Fuse(list, fuseOptions);
+      result = fuse.search(searchTerms);
 
-    let fuse = new Fuse(list, fuseOptions);
-    let result = fuse.search(searchTerms);
+      if (fuseOptions.supportHighlight) {
+        result = this.handleHighlight(result, fuseOptions);
+      }
+    } else {
+      result = list;
 
-    if (fuseOptions.supportHighlight) {
-      result = this.handleHighlight(result, fuseOptions);
+      if (fuseOptions.supportHighlight) {
+        result = result.map((element) => {
+          element = this.deepClone(element);
+          element[fuseOptions.fusejsHighlightKey] = this.deepClone(element);
+          return element;
+        });
+      }
     }
 
     return result;
@@ -53,10 +62,19 @@ export class FusejsService {
     Object.assign(this.defaultOptions, options);
   }
 
+  private deepClone(o) {
+    var _out, v, _key;
+    _out = Array.isArray(o) ? [] : {};
+    for (_key in o) {
+      v = o[_key];
+      _out[_key] = (typeof v === "object") ? this.deepClone(v) : v;
+    }
+    return _out;
+  }
   private handleHighlight(result, options: AngularFusejsOptions) {
     return result.map((matchObject) => {
-      const item = JSON.parse(JSON.stringify(matchObject.item));
-      item[options.fusejsHighlightKey] = JSON.parse(JSON.stringify(item));
+      const item = this.deepClone(matchObject.item);
+      item[options.fusejsHighlightKey] = this.deepClone(item);
 
       for (let match of matchObject.matches) {
         const key = match.key;

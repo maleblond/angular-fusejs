@@ -37,7 +37,7 @@ Params:
 Supports all fusejs options (see https://github.com/krisk/fuse) and also those:
 - supportHighlight (boolean), defaults to true: Whether or not to include highlight info in returning object. If set to false, it will just call FuseJS search, without any additional processing.
 - minSearchTermLength (number), defaults to 3: Minimal search string length. If length is less than this value, FuseJS will not be called and the array will be returned as is.
-- fusejsHighlightKey (string), defaults to 'fusejsHighlightKey': Key under which the highlighted results will be stored in the objects of the array. You probably do not need to change this.
+- fusejsHighlightKey (string), defaults to 'fuseJsHighlighted': Key under which the highlighted results will be stored in the objects of the array. You probably do not need to change this.
 
 By default, here are the options set by angular-fusejs:
 ```

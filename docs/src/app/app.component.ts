@@ -3,10 +3,24 @@ import { OnInit, Component } from "@angular/core";
 @Component({
   selector: 'my-app',
   template: `
-    <input type="search" [(ngModel)]="searchTerms">
-    <ul>
-      <li *ngFor="let book of (books | fusejs:searchTerms:searchOptions)" [innerHtml]="book | json"></li>
-    </ul>
+    <div class="container">
+      <h1>Angular-fusejs</h1>
+      <input type="search" class="form-control" [(ngModel)]="searchTerms" placeholder="Enter search terms here">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of (books | fusejs:searchTerms:searchOptions)">
+            <td [innerHTML]="book.fuseJsHighlighted.title"></td>
+            <td [innerHTML]="book.fuseJsHighlighted.author.firstName + ' ' + book.fuseJsHighlighted.author.lastName"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   `
 })
 export class AppComponent implements OnInit{
