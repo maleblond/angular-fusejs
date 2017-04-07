@@ -39489,7 +39489,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
 var Fuse = __webpack_require__(431);
-// Should not include lodash, but only lodash.set / lodash.get
 var _set = __webpack_require__(433);
 var _get = __webpack_require__(432);
 var FusejsService = (function () {
@@ -39497,37 +39496,58 @@ var FusejsService = (function () {
         this.defaultOptions = {
             supportHighlight: true,
             shouldSort: false,
-            threshold: 0.4,
-            minMatchCharLength: 3,
+            threshold: 0.2,
+            minMatchCharLength: 1,
             include: [],
             minSearchTermLength: 3,
-            fusejsHighlightKey: 'fuseJsHighlighted'
+            fusejsHighlightKey: 'fuseJsHighlighted',
+            tokenize: true,
         };
     }
     FusejsService.prototype.searchList = function (list, searchTerms, options) {
+        var _this = this;
         if (options === void 0) { options = {}; }
         var fuseOptions = Object.assign({}, this.defaultOptions, options);
-        if (searchTerms && searchTerms.length < fuseOptions.minSearchTermLength) {
-            return list;
+        var result = [];
+        if (searchTerms && searchTerms.length >= fuseOptions.minSearchTermLength) {
+            if (fuseOptions.supportHighlight) {
+                fuseOptions.include.push('matches');
+            }
+            var fuse = new Fuse(list, fuseOptions);
+            result = fuse.search(searchTerms);
+            if (fuseOptions.supportHighlight) {
+                result = this.handleHighlight(result, fuseOptions);
+            }
         }
-        if (fuseOptions.supportHighlight) {
-            fuseOptions.include.push('matches');
-        }
-        var fuse = new Fuse(list, fuseOptions);
-        var result = fuse.search(searchTerms);
-        if (fuseOptions.supportHighlight) {
-            result = this.handleHighlight(result, fuseOptions);
+        else {
+            result = list;
+            if (fuseOptions.supportHighlight) {
+                result = result.map(function (element) {
+                    element = _this.deepClone(element);
+                    element[fuseOptions.fusejsHighlightKey] = _this.deepClone(element);
+                    return element;
+                });
+            }
         }
         return result;
     };
     FusejsService.prototype.setDefaultOptions = function (options) {
         Object.assign(this.defaultOptions, options);
     };
+    FusejsService.prototype.deepClone = function (o) {
+        var _out, v, _key;
+        _out = Array.isArray(o) ? [] : {};
+        for (_key in o) {
+            v = o[_key];
+            _out[_key] = (typeof v === "object") ? this.deepClone(v) : v;
+        }
+        return _out;
+    };
     FusejsService.prototype.handleHighlight = function (result, options) {
+        var _this = this;
         return result.map(function (matchObject) {
-            var item = JSON.parse(JSON.stringify(matchObject.item));
-            item[options.fusejsHighlightKey] = JSON.parse(JSON.stringify(item));
-            console.log(matchObject.matches);
+            var item = _this.deepClone(matchObject.item);
+            item[options.fusejsHighlightKey] = _this.deepClone(item);
             for (var _i = 0, _a = matchObject.matches; _i < _a.length; _i++) {
                 var match = _a[_i];
                 var key = match.key;
@@ -39535,14 +39555,13 @@ var FusejsService = (function () {
                 var highlightOffset = 0;
                 for (var _b = 0, indices_1 = indices; _b < indices_1.length; _b++) {
                     var indice = indices_1[_b];
-                    console.log(indice);
                     //TODO make it work with array indices (does not work out of the box with fusejs)
                     var initialValue = _get(item[options.fusejsHighlightKey], key);
                     var startOffset = indice[0] + highlightOffset;
                     var endOffset = indice[1] + highlightOffset + 1;
                     var highlightedTerm = initialValue.substring(startOffset, endOffset);
                     var newValue = initialValue.substring(0, startOffset) + '<em>' + highlightedTerm + '</em>' + initialValue.substring(endOffset);
-                    // '<em></em>'.length
+                    // '<em></em>'.length == 9
                     highlightOffset += 9;
                     _set(item[options.fusejsHighlightKey], key, newValue);
                 }
@@ -55523,12 +55542,7 @@ var FusejsPipe = (function () {
     }
     FusejsPipe.prototype.transform = function (elements, searchTerms, options) {
         if (options === void 0) { options = {}; }
-        if (searchTerms) {
-            return this.FusejsService.searchList(elements, searchTerms, options);
-        }
-        else {
-            return elements;
-        }
+        return this.FusejsService.searchList(elements, searchTerms, options);
     };
     return FusejsPipe;
 }());
@@ -70705,7 +70719,7 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.ngOnInit = function () {
         this.searchOptions = {
-            keys: ['title']
+            keys: ['title', 'author.firstName', 'author.lastName']
         };
         this.books = [
             {
@@ -70876,7 +70890,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n    <input type=\"search\" [(ngModel)]=\"searchTerms\">\n    <ul>\n      <li *ngFor=\"let book of (books | fusejs:searchTerms:searchOptions)\" [innerHtml]=\"book.fuseJsHighlighted?.title || book.title\">\n      </li>\n    </ul>\n  "
+        template: "\n    <div class=\"container\">\n      <h1>Angular-fusejs</h1>\n      <input type=\"search\" class=\"form-control\" [(ngModel)]=\"searchTerms\" placeholder=\"Enter search terms here\">\n      <table class=\"table\">\n        <thead>\n          <tr>\n            <th>Title</th>\n            <th>Author</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let book of (books | fusejs:searchTerms:searchOptions)\">\n            <td [innerHTML]=\"book.fuseJsHighlighted.title\"></td>\n            <td [innerHTML]=\"book.fuseJsHighlighted.author.firstName + ' ' + book.fuseJsHighlighted.author.lastName\"></td>\n          </tr>\n        </tbody>\n      </table>\n    </div>\n  "
     })
 ], AppComponent);
 exports.AppComponent = AppComponent;
