@@ -5,7 +5,7 @@ import { OnInit, Component } from "@angular/core";
   template: `
     <input type="search" [(ngModel)]="searchTerms">
     <ul>
-      <li *ngFor="let book of (books | fusejs:searchTerms:searchOptions)" [innerHtml]="(book) | json"></li>
+      <li *ngFor="let book of (books | fusejs:searchTerms:searchOptions)" [innerHtml]="book | json"></li>
     </ul>
   `
 })
