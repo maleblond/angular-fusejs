@@ -29,15 +29,34 @@ Use `fusejs` pipe in a *ngFor to search through a list of elements. Pass search 
 ```
 
 Params:
-- Array: element to search in (required)
-- String: search string (optional)
-- Boolean: Should include highlighting info or not (optional, default true). `fusejsHighlight` filter will not work if false.
-- Object: fusejs supported options (see https://github.com/krisk/fuse) (optional)
-- String: Highlighting key name (optional, default: 'fuseJsHighlighted')
+- Array(required): Array of string / object  to search in
+- String(optional): search string
+- Object(optional): options (see below)
+
+#### Options
+Supports all fusejs options (see https://github.com/krisk/fuse) and also those:
+- supportHighlight (boolean), defaults to true: Whether or not to include highlight info in returning object. If set to false, it will just call FuseJS search, without any additional processing.
+- minSearchTermLength (number), defaults to 3: Minimal search string length. If length is less than this value, FuseJS will not be called and the array will be returned as is.
+- fusejsHighlightKey (string), defaults to 'fusejsHighlightKey': Key under which the highlighted results will be stored in the objects of the array. You probably do not need to change this.
+
+By default, here are the options set by angular-fusejs:
+```
+{
+    supportHighlight: true,
+    shouldSort: false,
+    threshold: 0.2,
+    minMatchCharLength: 1,
+    include: [],
+    minSearchTermLength: 3,
+    fusejsHighlightKey: 'fuseJsHighlighted',
+    tokenize: true
+}
+```
+
+You can override those default options by injecting `FusejsService` in your app and setting `FusejsService.defaultOptions` to whatever you want.
 
 ### Show highlighted terms
 ```
-{{element.fuseJsHighlighted.name}}
+{{element.fuseJsHighlighted.whateverAttribute}}
 ```
-
-You may change `fuseJsHighlighted` for any other key by specifying it to the `fusejs` filter.
+Replace `whateverAttribute` with your attribute name, trust it as HTML and you are good to go :D
