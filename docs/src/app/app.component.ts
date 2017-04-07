@@ -5,8 +5,7 @@ import { OnInit, Component } from "@angular/core";
   template: `
     <input type="search" [(ngModel)]="searchTerms">
     <ul>
-      <li *ngFor="let book of (books | fusejs:searchTerms:searchOptions)" [innerHtml]="book.fuseJsHighlighted?.title || book.title">
-      </li>
+      <li *ngFor="let book of (books | fusejs:searchTerms:searchOptions)" [innerHtml]="(book) | json"></li>
     </ul>
   `
 })
@@ -15,7 +14,7 @@ export class AppComponent implements OnInit{
   private books: Array<Object>;
   ngOnInit() {
     this.searchOptions = {
-      keys: ['title']
+      keys: ['title', 'author.firstName', 'author.lastName']
     };
 
     this.books = [

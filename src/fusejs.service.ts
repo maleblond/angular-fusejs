@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core'
 import * as Fuse from 'fuse.js'
 import FuseOptions = Fuse.FuseOptions;
 
-// Should not include lodash, but only lodash.set / lodash.get
 import _set = require('lodash.set');
 import _get = require('lodash.get');
 
@@ -18,11 +17,12 @@ export class FusejsService {
   private defaultOptions: AngularFusejsOptions = {
     supportHighlight: true,
     shouldSort: false,
-    threshold: 0.4,
-    minMatchCharLength: 3,
+    threshold: 0.2,
+    minMatchCharLength: 1,
     include: [],
     minSearchTermLength: 3,
-    fusejsHighlightKey: 'fuseJsHighlighted'
+    fusejsHighlightKey: 'fuseJsHighlighted',
+    tokenize: true,
   };
 
   constructor() {
@@ -65,14 +65,13 @@ export class FusejsService {
         let highlightOffset: number = 0;
 
         for (let indice of indices) {
-          console.log(indice);
           //TODO make it work with array indices (does not work out of the box with fusejs)
           const initialValue: string = _get(item[options.fusejsHighlightKey], key) as string;
           const startOffset = indice[0] + highlightOffset;
           const endOffset = indice[1] + highlightOffset + 1;
           let highlightedTerm = initialValue.substring(startOffset, endOffset);
           let newValue = initialValue.substring(0, startOffset) + '<em>' + highlightedTerm + '</em>' + initialValue.substring(endOffset);
-          // '<em></em>'.length
+          // '<em></em>'.length == 9
           highlightOffset += 9;
           _set(item[options.fusejsHighlightKey], key, newValue);
         }
