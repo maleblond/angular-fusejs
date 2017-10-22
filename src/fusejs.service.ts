@@ -79,11 +79,11 @@ export class FusejsService {
       item[options.fusejsHighlightKey] = this.deepClone(item);
       item[options.fusejsScoreKey] = matchObject.score;
       for (let match of matchObject.matches) {
-        let key: string = match.key;
         const indices: number[][] = match.indices;
 
         let highlightOffset: number = 0;
 
+        let key: string = match.key;
         if(_get(item[options.fusejsHighlightKey], key).constructor === Array) {
           key += `[${match.arrayIndex}]`
         }
