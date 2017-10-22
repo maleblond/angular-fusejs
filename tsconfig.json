@@ -2,8 +2,10 @@
   "files": [
     "index.ts"
   ],
+  "exclude": [
+    "node_modules"
+  ],
   "compilerOptions": {
-    "allowJs": true,
     "module": "commonjs",
     "target": "es5",
     "noImplicitAny": false,
@@ -12,9 +14,6 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
-    "skipLibCheck": true,
-    "exclude": [
-      "node_modules"
-    ]
+    "skipLibCheck": true
   }
 }

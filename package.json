@@ -1,10 +1,10 @@
 {
   "name": "angular-fusejs",
   "version": "1.0.0",
-  "description": "Angular 2 plugin using fuse.js to search through a list of elements with a string. Supports highlight.",
+  "description": "Angular plugin using fuse.js to search through a list of elements with a string. Supports highlight.",
   "main": "index.js",
   "dependencies": {
-    "fuse.js": "^2.0.0",
+    "fuse.js": "^3.2.0",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2"
   },
@@ -16,11 +16,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maleblond/angular-local-search.git"
+    "url": "git+https://github.com/maleblond/angular-fusejs.git"
   },
   "keywords": [
     "fuse.js",
-    "angular2",
+    "angular",
     "highlight"
   ],
   "author": "Marc-Antoine Leblond",

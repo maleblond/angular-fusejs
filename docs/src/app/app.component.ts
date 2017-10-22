@@ -10,13 +10,13 @@ import { OnInit, Component } from "@angular/core";
         <thead>
           <tr>
             <th>Title</th>
-            <th>Author</th>
+            <th>Score</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let book of (books | fusejs:searchTerms:searchOptions)">
             <td [innerHTML]="book.fuseJsHighlighted.title"></td>
-            <td [innerHTML]="book.fuseJsHighlighted.author.firstName + ' ' + book.fuseJsHighlighted.author.lastName"></td>
+            <td [innerHTML]="book.fuseJsScore"></td>
           </tr>
         </tbody>
       </table>
@@ -26,172 +26,82 @@ import { OnInit, Component } from "@angular/core";
 export class AppComponent implements OnInit{
   private searchOptions: AngularFusejsOptions;
   private books: Array<Object>;
+
   ngOnInit() {
     this.searchOptions = {
-      keys: ['title', 'author.firstName', 'author.lastName']
+      keys: ['title'],
+      maximumScore: 0.5,
     };
 
     this.books = [
       {
-        title: "Old Man's War",
-        author: {
-          firstName: "John",
-          lastName: "Scalzi"
-        }
+        title: "Old Man's War"
       },
       {
-        title: "The Lock Artist",
-        author: {
-          firstName: "Steve",
-          lastName: "Hamilton"
-        }
+        title: "The Lock Artist"
       },
       {
-        title: "HTML5",
-        author: {
-          firstName: "Remy",
-          lastName: "Sharp"
-        }
+        title: "HTML5"
       },
       {
-        title: "Right Ho Jeeves",
-        author: {
-          firstName: "P.D",
-          lastName: "Woodhouse"
-        }
+        title: "Right Ho Jeeves"
       },
       {
-        title: "The Code of the Wooster",
-        author: {
-          firstName: "P.D",
-          lastName: "Woodhouse"
-        }
+        title: "The Code of the Wooster"
       },
       {
-        title: "Thank You Jeeves",
-        author: {
-          firstName: "P.D",
-          lastName: "Woodhouse"
-        }
+        title: "Thank You Jeeves"
       },
       {
-        title: "The DaVinci Code",
-        author: {
-          firstName: "Dan",
-          lastName: "Brown"
-        }
+        title: "The DaVinci Code"
       },
       {
-        title: "Angels & Demons",
-        author: {
-          firstName: "Dan",
-          lastName: "Brown"
-        }
+        title: "Angels & Demons"
       },
       {
-        title: "The Silmarillion",
-        author: {
-          firstName: "J.R.R",
-          lastName: "Tolkien"
-        }
+        title: "The Silmarillion"
       },
       {
-        title: "Syrup",
-        author: {
-          firstName: "Max",
-          lastName: "Barry"
-        }
+        title: "Syrup"
       },
       {
-        title: "The Lost Symbol",
-        author: {
-          firstName: "Dan",
-          lastName: "Brown"
-        }
+        title: "The Lost Symbol"
       },
       {
-        title: "The Book of Lies",
-        author: {
-          firstName: "Brad",
-          lastName: "Meltzer"
-        }
+        title: "The Book of Lies"
       },
       {
-        title: "Lamb",
-        author: {
-          firstName: "Christopher",
-          lastName: "Moore"
-        }
+        title: "Lamb"
       },
       {
-        title: "Fool",
-        author: {
-          firstName: "Christopher",
-          lastName: "Moore"
-        }
+        title: "Fool"
       },
       {
-        title: "Incompetence",
-        author: {
-          firstName: "Rob",
-          lastName: "Grant"
-        }
+        title: "Incompetence"
       },
       {
-        title: "Fat",
-        author: {
-          firstName: "Rob",
-          lastName: "Grant"
-        }
+        title: "Fat"
       },
       {
-        title: "Colony",
-        author: {
-          firstName: "Rob",
-          lastName: "Grant"
-        }
+        title: "Colony"
       },
       {
-        title: "Backwards, Red Dwarf",
-        author: {
-          firstName: "Rob",
-          lastName: "Grant"
-        }
+        title: "Backwards, Red Dwarf"
       },
       {
-        title: "The Grand Design",
-        author: {
-          firstName: "Stephen",
-          lastName: "Hawking"
-        }
+        title: "The Grand Design"
       },
       {
-        title: "The Book of Samson",
-        author: {
-          firstName: "David",
-          lastName: "Maine"
-        }
+        title: "The Book of Samson"
       },
       {
-        title: "The Preservationist",
-        author: {
-          firstName: "David",
-          lastName: "Maine"
-        }
+        title: "The Preservationist"
       },
       {
-        title: "Fallen",
-        author: {
-          firstName: "David",
-          lastName: "Maine"
-        }
+        title: "Fallen"
       },
       {
-        title: "Monster 1959",
-        author: {
-          firstName: "David",
-          lastName: "Maine"
-        }
+        title: "Monster 1959"
       }
     ]
   }
