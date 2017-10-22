@@ -59,4 +59,4 @@ You can override those default options by injecting `FusejsService` in your app 
 ```
 {{element.fuseJsHighlighted.whateverAttribute}}
 ```
-Replace `whateverAttribute` with your attribute name, trust it as HTML and you are good to go :D
+Replace `whateverAttribute` with your attribute name, trust it as HTML and you are good to go.
