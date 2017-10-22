@@ -39551,9 +39551,9 @@ var FusejsService = (function () {
             item[options.fusejsScoreKey] = matchObject.score;
             for (var _i = 0, _a = matchObject.matches; _i < _a.length; _i++) {
                 var match = _a[_i];
-                var key = match.key;
                 var indices = match.indices;
                 var highlightOffset = 0;
+                var key = match.key;
                 if (_get(item[options.fusejsHighlightKey], key).constructor === Array) {
                     key += "[" + match.arrayIndex + "]";
                 }
