@@ -2,5 +2,7 @@
   "extends": [
     "config:base",
     "schedule:nonOfficeHours"
-  ]
+  ],
+  "timezone": "America/Toronto",
+  "groupName": "all"
 }
