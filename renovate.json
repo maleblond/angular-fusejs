@@ -1,11 +1,13 @@
 {
   "extends": [
-    "config:base",
-    "schedule:nonOfficeHours"
+    "config:base"
   ],
   "timezone": "America/Toronto",
   "packageRules": [{
     "updateTypes": ["minor", "patch"],
     "groupName": "Minor and patch package updates"
-  }]
+  }],
+  "major": {
+    "groupName": "Major package updates"
+  }
 }
