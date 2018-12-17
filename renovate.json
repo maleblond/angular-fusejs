@@ -4,9 +4,8 @@
     "schedule:nonOfficeHours"
   ],
   "timezone": "America/Toronto",
-  "groupName": "all",
   "packageRules": [{
     "updateTypes": ["minor", "patch"],
-    "groupName": "Minor and patch updates",
+    "groupName": "Minor and patch updates"
   }]
 }
