@@ -6,7 +6,6 @@
   "timezone": "America/Toronto",
   "packageRules": [{
     "updateTypes": ["minor", "patch"],
-    "groupName": "Minor and patch package updates",
-    "branchName": "Minor and patch package updates"
+    "groupName": "Minor and patch package updates"
   }]
 }
