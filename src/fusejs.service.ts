@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core'
-import * as Fuse from 'fuse.js'
+import {Injectable} from '@angular/core';
+import * as Fuse from 'fuse.js';
 import FuseOptions = Fuse.FuseOptions;
 
 import _set = require('lodash.set');
 import _get = require('lodash.get');
 
 
-export interface AngularFusejsOptions extends FuseOptions {
+export interface AngularFusejsOptions<T> extends FuseOptions<T> {
   supportHighlight?: boolean;
   fusejsHighlightKey?: string;
   fusejsScoreKey?: string;
@@ -15,8 +15,8 @@ export interface AngularFusejsOptions extends FuseOptions {
 }
 
 @Injectable()
-export class FusejsService {
-  private defaultOptions: AngularFusejsOptions = {
+export class FusejsService<T> {
+  private defaultOptions: AngularFusejsOptions<T> = {
     supportHighlight: true,
     shouldSort: false,
     threshold: 0.6,
@@ -30,8 +30,8 @@ export class FusejsService {
     fusejsScoreKey: 'fuseJsScore',
   };
 
-  searchList(list: Array<any>, searchTerms: string, options: AngularFusejsOptions = {}) {
-    const fuseOptions: AngularFusejsOptions = Object.assign({}, this.defaultOptions, options);
+  searchList(list: Array<T>, searchTerms: string, options: AngularFusejsOptions<T> = {}) {
+    const fuseOptions: AngularFusejsOptions<T> = Object.assign({}, this.defaultOptions, options);
     let result = [];
 
     if (searchTerms && searchTerms.length >= fuseOptions.minSearchTermLength) {
@@ -67,7 +67,7 @@ export class FusejsService {
     return _out;
   }
 
-  private handleHighlight(result, options: AngularFusejsOptions) {
+  private handleHighlight(result, options: AngularFusejsOptions<T>) {
     if (options.maximumScore && options.includeScore) {
       result = result.filter((matchObject) => {
         return matchObject.score <= options.maximumScore;
