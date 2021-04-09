@@ -12,6 +12,7 @@ export interface AngularFusejsOptions<T> extends FuseOptions<T> {
   fusejsScoreKey?: string;
   minSearchTermLength?: number;
   maximumScore?: number;
+  highlightTag?: string;
 }
 
 @Injectable()
@@ -95,9 +96,11 @@ export class FusejsService<T> {
 
           const startOffset = indice[0] + highlightOffset;
           const endOffset = indice[1] + highlightOffset + 1;
+          const tagStart = "<" + (options.highlightTag ?? "em") + ">";
+          const tagEnd = "</" + (options.highlightTag ?? "em") + ">";
           let highlightedTerm = initialValue.substring(startOffset, endOffset);
-          let newValue = initialValue.substring(0, startOffset) + '<em>' + highlightedTerm + '</em>' + initialValue.substring(endOffset);
-          highlightOffset += '<em></em>'.length;
+          let newValue = initialValue.substring(0, startOffset) + tagStart + highlightedTerm + tagEnd + initialValue.substring(endOffset);
+          highlightOffset += (tagStart + tagEnd).length;
           _set(item[options.fusejsHighlightKey], key, newValue);
         }
       }
