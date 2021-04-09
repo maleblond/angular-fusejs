@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import * as Fuse from 'fuse.js';
+import Fuse from 'fuse.js';
 import FuseOptions = Fuse.FuseOptions;
 
 import _set = require('lodash.set');
