@@ -1,13 +1,17 @@
 {
   "files": [
-    "index.ts"
+    "index.ts",
   ],
   "exclude": [
     "node_modules"
   ],
+  "include": [
+    "src/**/*",
+  ],
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
+    "esModuleInterop": true,
     "noImplicitAny": false,
     "sourceMap": false,
     "declaration": true,
