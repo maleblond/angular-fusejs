@@ -1,12 +1,18 @@
 {
   "files": [
-    "index.ts",
+    "index.ts"
   ],
   "exclude": [
     "node_modules"
   ],
   "include": [
-    "src/**/*",
+    "src/**/*"
+  ],
+  "lib": [
+    "es2015",
+    "es2017",
+    "esnext",
+    "dom"
   ],
   "compilerOptions": {
     "module": "commonjs",

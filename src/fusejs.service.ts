@@ -31,7 +31,9 @@ export class FusejsService<T> {
   };
 
   searchList(list: Array<T>, searchTerms: string, options: AngularFusejsOptions<T> = {}) {
-    const fuseOptions: AngularFusejsOptions<T> = Object.assign({}, this.defaultOptions, options);
+    // https://stackoverflow.com/questions/35959372/property-assign-does-not-exist-on-type-objectconstructor
+    // TODO : remove (<any>Object) hack by using right lib or polyfill ?
+    const fuseOptions: AngularFusejsOptions<T> = (<any>Object).assign({}, this.defaultOptions, options);
     let result = [];
 
     if (searchTerms && searchTerms.length >= fuseOptions.minSearchTermLength) {
