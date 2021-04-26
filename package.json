@@ -3,16 +3,20 @@
   "version": "1.0.2",
   "description": "Angular plugin using fuse.js to search through a list of elements with a string. Supports highlight.",
   "main": "index.js",
+  "type": "module",
   "dependencies": {
-    "@angular/core": "10.2.0",
     "fuse.js": "^3.6.1",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2"
   },
+  "peerDependencies": {
+    "@angular/core": "10.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "debug": "tsc .",
-    "build": "tsc -p ."
+    "clean": "rm -rf ./dist",
+    "copy-files": "cp README.md LICENSE package.json dist/",
+    "build": "tsc -p . && yarn copy-files"
   },
   "repository": {
     "type": "git",
@@ -32,6 +36,8 @@
   "devDependencies": {
     "@types/lodash.get": "^4.4.2",
     "@types/lodash.set": "^4.3.2",
+    "@angular/core": "10.2.0",
+    "@types/node": "^13.1.8",
     "typescript": "3.9.7"
   }
 }
