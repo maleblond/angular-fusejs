@@ -1,6 +1,6 @@
 {
   "name": "angular-fusejs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Angular plugin using fuse.js to search through a list of elements with a string. Supports highlight.",
   "main": "index.js",
   "type": "module",
