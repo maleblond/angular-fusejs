@@ -27,7 +27,9 @@
     "moduleResolution": "node",
     "skipLibCheck": false,
     "outDir": "./dist",
+    "baseUrl": "./",
     "rootDir": "./",
+    "allowSyntheticDefaultImports": true,
     "strict": true
   },
   "angularCompilerOptions": {

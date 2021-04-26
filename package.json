@@ -1,33 +1,44 @@
 {
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "angular-fusejs",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Angular plugin using fuse.js to search through a list of elements with a string. Supports highlight.",
   "main": "index.js",
   "type": "module",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "index.ts"
+    },
+    "whitelistedNonPeerDependencies": [
+      "."
+    ]
+  },
   "dependencies": {
-    "@angular/common": "10.2.0",
     "@angular/core": "10.2.0",
     "fuse.js": "^3.6.1",
-    "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2",
+    "lodash-es": "^4.17.21",
     "rxjs": "^6.6.7",
     "tslib": "^2.1.0",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {
+    "@angular/compiler": "10.2.0",
+    "@angular/compiler-cli": "10.2.0",
+    "@types/lodash-es": "^4.17.4",
     "@types/lodash.get": "^4.4.2",
     "@types/lodash.set": "^4.3.2",
     "@types/node": "^13.1.8",
+    "ng-packagr": "^11.2.4",
     "typescript": "3.9.7"
   },
   "peerDependencies": {
-    "@angular/common": "10.2.0",
     "@angular/core": "10.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf ./dist",
     "copy-files": "cp README.md LICENSE package.json tsconfig.json dist/",
+    "package": "ng-packagr -p package.json",
     "build": "tsc -p . && yarn copy-files"
   },
   "repository": {

@@ -10,6 +10,9 @@ Watting for Author updates, did fix missing type to fit angular-fusejs with last
 
 Work in progress : production build inspired from :
 https://github.com/malick-dev/angular-fusejs/commit/89d005037f62728c734904a155f996699ab882bb
+https://github.com/ng-packagr/ng-packagr/issues/355
+https://github.com/abbazabacto/ngpackagr-barrel-issue/blob/master/package.json
+https://www.typescriptlang.org/tsconfig#allowSyntheticDefaultImports
 
 ## How to install?
 

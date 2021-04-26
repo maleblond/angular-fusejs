@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import Fuse from 'fuse.js';
+import * as Fuse from 'fuse.js';
 import {FuseOptions} from 'fuse.js'
 
-import _set = require('lodash.set');
-import _get = require('lodash.get');
+import {set as _set} from 'lodash-es';
+import {get as _get} from 'lodash-es';
 
 
 export interface AngularFusejsOptions<T> extends FuseOptions<T> {
