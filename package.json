@@ -1,15 +1,28 @@
 {
   "name": "angular-fusejs",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Angular plugin using fuse.js to search through a list of elements with a string. Supports highlight.",
   "main": "index.js",
   "type": "module",
   "dependencies": {
+    "@angular/common": "10.2.0",
     "@angular/core": "10.2.0",
     "fuse.js": "^3.6.1",
     "lodash.get": "^4.4.2",
     "lodash.set": "^4.3.2",
-    "rxjs": "^6.6.7"
+    "rxjs": "^6.6.7",
+    "tslib": "^2.1.0",
+    "zone.js": "~0.10.3"
+  },
+  "devDependencies": {
+    "@types/lodash.get": "^4.4.2",
+    "@types/lodash.set": "^4.3.2",
+    "@types/node": "^13.1.8",
+    "typescript": "3.9.7"
+  },
+  "peerDependencies": {
+    "@angular/common": "10.2.0",
+    "@angular/core": "10.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -31,11 +44,5 @@
   "bugs": {
     "url": "https://github.com/maleblond/angular-local-search/issues"
   },
-  "homepage": "https://github.com/maleblond/angular-local-search#readme",
-  "devDependencies": {
-    "@types/lodash.get": "^4.4.2",
-    "@types/lodash.set": "^4.3.2",
-    "@types/node": "^13.1.8",
-    "typescript": "3.9.7"
-  }
+  "homepage": "https://github.com/maleblond/angular-local-search#readme"
 }

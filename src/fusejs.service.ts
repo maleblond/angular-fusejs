@@ -10,7 +10,7 @@ export interface AngularFusejsOptions<T> extends FuseOptions<T> {
   supportHighlight?: boolean;
   fusejsHighlightKey?: string;
   fusejsScoreKey?: string;
-  minSearchTermLength?: number;
+  minSearchTermLength?: number; // = 0;
   maximumScore?: number;
   highlightTag?: string;
 }
@@ -35,9 +35,9 @@ export class FusejsService<T> {
     // https://stackoverflow.com/questions/35959372/property-assign-does-not-exist-on-type-objectconstructor
     // TODO : remove (<any>Object) hack by using right lib or polyfill ?
     const fuseOptions: AngularFusejsOptions<T> = (<any>Object).assign({}, this.defaultOptions, options);
-    let result = [];
+    let result:any = [];
 
-    if (searchTerms && searchTerms.length >= fuseOptions.minSearchTermLength) {
+    if (searchTerms && searchTerms.length >= (fuseOptions?.minSearchTermLength || 0)) {
       if (fuseOptions.supportHighlight) {
         fuseOptions.includeMatches = true;
       }
@@ -52,7 +52,7 @@ export class FusejsService<T> {
 
       if (fuseOptions.supportHighlight) {
         result.forEach((element) => {
-          element[fuseOptions.fusejsHighlightKey] = this.deepClone(element);
+          element[fuseOptions.fusejsHighlightKey || '_'] = this.deepClone(element);
         });
       }
     }
@@ -73,26 +73,26 @@ export class FusejsService<T> {
   private handleHighlight(result, options: AngularFusejsOptions<T>) {
     if (options.maximumScore && options.includeScore) {
       result = result.filter((matchObject) => {
-        return matchObject.score <= options.maximumScore;
+        return matchObject.score <= (options.maximumScore||0);
       })
     }
 
     return result.map((matchObject) => {
       const item = this.deepClone(matchObject.item);
-      item[options.fusejsHighlightKey] = this.deepClone(item);
-      item[options.fusejsScoreKey] = matchObject.score;
+      item[options.fusejsHighlightKey || "_"] = this.deepClone(item);
+      item[options.fusejsScoreKey || "_"] = matchObject.score;
       for (let match of matchObject.matches) {
         const indices: number[][] = match.indices;
 
         let highlightOffset: number = 0;
 
         let key: string = match.key;
-        if(_get(item[options.fusejsHighlightKey], key).constructor === Array) {
+        if(_get(item[options.fusejsHighlightKey || "_"], key).constructor === Array) {
           key += `[${match.arrayIndex}]`
         }
 
         for (let indice of indices) {
-          let initialValue: string = _get(item[options.fusejsHighlightKey], key) as string;
+          let initialValue: string = _get(item[options.fusejsHighlightKey || "_"], key) as string;
 
           const startOffset = indice[0] + highlightOffset;
           const endOffset = indice[1] + highlightOffset + 1;
@@ -101,7 +101,7 @@ export class FusejsService<T> {
           let highlightedTerm = initialValue.substring(startOffset, endOffset);
           let newValue = initialValue.substring(0, startOffset) + tagStart + highlightedTerm + tagEnd + initialValue.substring(endOffset);
           highlightOffset += (tagStart + tagEnd).length;
-          _set(item[options.fusejsHighlightKey], key, newValue);
+          _set(item[options.fusejsHighlightKey || "_"], key, newValue);
         }
       }
 

@@ -16,17 +16,19 @@
   ],
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
     "esModuleInterop": true,
     "noImplicitAny": false,
     "sourceMap": false,
     "declaration": true,
-    "declarationMap": false,
+    "declarationMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "skipLibCheck": false,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "rootDir": "./",
+    "strict": true
   },
   "angularCompilerOptions": {
     "enableIvy": false
