@@ -21,10 +21,14 @@
     "noImplicitAny": false,
     "sourceMap": false,
     "declaration": true,
+    "declarationMap": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "outDir": "./dist"
-  }
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
+  }  
 }

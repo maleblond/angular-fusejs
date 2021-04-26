@@ -34,10 +34,11 @@
   },
   "homepage": "https://github.com/maleblond/angular-local-search#readme",
   "devDependencies": {
+    "@angular/core": "10.2.0",
     "@types/lodash.get": "^4.4.2",
     "@types/lodash.set": "^4.3.2",
-    "@angular/core": "10.2.0",
     "@types/node": "^13.1.8",
+    "rxjs": "^6.6.7",
     "typescript": "3.9.7"
   }
 }

@@ -8,6 +8,9 @@ Demo: <https://maleblond.github.io/angular-fusejs/>
 ## Forked by Miguel Monwoo for Angular 10 compatibilities
 Watting for Author updates, did fix missing type to fit angular-fusejs with last fusejs lib.
 
+Work in progress : production build inspired from :
+https://github.com/malick-dev/angular-fusejs/commit/89d005037f62728c734904a155f996699ab882bb
+
 ## How to install?
 
 This module is available through npm. It is compatible with module bundlers (webpack / browserify ...).
