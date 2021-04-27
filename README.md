@@ -6,13 +6,30 @@ Also easily **highlight** matched terms which is the true added value of this mo
 Demo: <https://maleblond.github.io/angular-fusejs/>
 
 ## Forked by Miguel Monwoo for Angular 10 compatibilities
-Watting for Author updates, did fix missing type to fit angular-fusejs with last fusejs lib.
+Watting for Author updates, did fix missing type to fit angular-fusejs with last fusejs lib and fix some production issue, all seem ok with Angular 10.
 
-Work in progress : production build inspired from :
+Production build inspired from :
 https://github.com/malick-dev/angular-fusejs/commit/89d005037f62728c734904a155f996699ab882bb
+
 https://github.com/ng-packagr/ng-packagr/issues/355
+
 https://github.com/abbazabacto/ngpackagr-barrel-issue/blob/master/package.json
+
 https://www.typescriptlang.org/tsconfig#allowSyntheticDefaultImports
+
+And fixed with ng-packagr
+
+```bash
+# Just use this fork dist build in your project :
+yarn upgrade angular-fusejs@git+https://github.com/MonwooServices/angular-fusejs.git#DistBuild
+
+
+# Build the fork sources for production (in ./dist):
+yarn install
+yarn clean && yarn package
+
+```
+
 
 ## How to install?
 
