@@ -1,18 +1,45 @@
 {
+  "$schema": "./node_modules/ng-packagr/package.schema.json",
   "name": "angular-fusejs",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "Angular plugin using fuse.js to search through a list of elements with a string. Supports highlight.",
   "main": "index.js",
+  "type": "module",
+  "ngPackage": {
+    "lib": {
+      "entryFile": "index.ts"
+    },
+    "allowedNonPeerDependencies": [
+      "."
+    ]
+  },
   "dependencies": {
-    "fuse.js": "^3.2.0",
-    "lodash.get": "^4.4.2",
-    "lodash.set": "^4.3.2"
+    "@angular/core": "10.2.0",
+    "fuse.js": "^3.6.1",
+    "lodash-es": "^4.17.21",
+    "rxjs": "^6.6.7",
+    "tslib": "^2.1.0",
+    "zone.js": "~0.10.3"
   },
   "peerDependencies": {
-    "@angular/core": "^2.0.0"
+    "@angular/core": "10.2.0"
+  },
+  "devDependencies": {
+    "@angular/compiler": "10.2.0",
+    "@angular/compiler-cli": "10.2.0",
+    "@types/lodash-es": "^4.17.4",
+    "@types/lodash.get": "^4.4.2",
+    "@types/lodash.set": "^4.3.2",
+    "@types/node": "^13.1.8",
+    "ng-packagr": "^11.2.4",
+    "typescript": "3.9.7"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf ./dist",
+    "copy-files": "cp README.md LICENSE package.json tsconfig.json dist/",
+    "package": "ng-packagr -p package.json",
+    "build": "tsc -p . && yarn copy-files"
   },
   "repository": {
     "type": "git",
@@ -28,9 +55,5 @@
   "bugs": {
     "url": "https://github.com/maleblond/angular-local-search/issues"
   },
-  "homepage": "https://github.com/maleblond/angular-local-search#readme",
-  "devDependencies": {
-    "@types/lodash.get": "^4.4.2",
-    "@types/lodash.set": "^4.3.2"
-  }
+  "homepage": "https://github.com/maleblond/angular-local-search#readme"
 }

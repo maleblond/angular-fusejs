@@ -5,15 +5,34 @@
   "exclude": [
     "node_modules"
   ],
+  "include": [
+    "src/**/*"
+  ],
+  "lib": [
+    "es2015",
+    "es2017",
+    "esnext",
+    "dom"
+  ],
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es6",
+    "esModuleInterop": true,
     "noImplicitAny": false,
     "sourceMap": false,
     "declaration": true,
+    "declarationMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
-    "skipLibCheck": true
-  }
+    "skipLibCheck": false,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "rootDir": "./",
+    "allowSyntheticDefaultImports": true,
+    "strict": true
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false
+  }  
 }

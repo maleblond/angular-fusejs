@@ -3,14 +3,14 @@ import {FusejsService, AngularFusejsOptions} from './fusejs.service';
 
 
 @Pipe({name: 'fusejs'})
-export class FusejsPipe implements PipeTransform {
+export class FusejsPipe<T> implements PipeTransform {
   constructor(
-    private FusejsService: FusejsService
+    private FusejsService: FusejsService<T>
   ) {}
 
-  transform(elements: Array<Object>,
+  transform(elements: Array<T>,
             searchTerms: string,
-            options: AngularFusejsOptions = {}) {
+            options: AngularFusejsOptions<T> = {}) {
     return this.FusejsService.searchList(elements, searchTerms, options);
   }
 }
